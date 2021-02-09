@@ -51,6 +51,7 @@ def root():
         'home.html',
         siteName         = setting.siteName,
         custom      = setting.customMain,
+        customHead  = setting.customHead,
         grs              = db.getGroundStations(),
         obs              = db.getObservationsWithData(setting.mainObsCount),
         json             = json,
@@ -67,6 +68,7 @@ def observation():
     return render_template(
         'observation.html',
         ob = ob,
+        customHead  = setting.customHead,
         siteName = setting.siteName,
         setting = setting,
         tle = json.loads(ob['tle']),
@@ -87,6 +89,7 @@ def decodedObservationList():
     return render_template(
         'observationList.html',
         obs        = observations,
+        customHead  = setting.customHead,
         siteName   = setting.siteName,
         datetime   = datetime,
         main_title = main_title,
@@ -121,6 +124,7 @@ def observationList():
 
     return render_template(
         'observationList.html',
+        customHead  = setting.customHead,
         obs        = observations,
         siteName   = setting.siteName,
         datetime   = datetime,
