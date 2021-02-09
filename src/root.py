@@ -50,6 +50,7 @@ def root():
     return render_template(
         'home.html',
         siteName         = setting.siteName,
+        custom      = setting.customMain,
         grs              = db.getGroundStations(),
         obs              = db.getObservationsWithData(setting.mainObsCount),
         json             = json,
