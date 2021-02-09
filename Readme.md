@@ -1,4 +1,4 @@
-# r2cloud-public
+# r2-public
 Unofficial web client for display data from R2Server API (public)
 
 ![ScreenShot](https://raw.github.com/lukas0025/r2-public/master/imgs/ob.png)
