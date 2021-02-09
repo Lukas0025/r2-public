@@ -5,6 +5,9 @@ siteName = "r2public"
 mainObsCount = 30
 observationsLimit = 150
 
+customMain = ""
+customHead = ""
+
 hexdumpLimit = 50
 
 syncCronInterval = 3600 # in s
