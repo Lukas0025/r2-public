@@ -1,6 +1,12 @@
 # r2cloud-public
 Unofficial web client for display data from R2Server API (public)
 
+![ScreenShot](https://raw.github.com/lukas0025/r2-public/master/imgs/ob.png)
+
+more ScreenShots in `/imgs`
+
+running server on: https://r2public.eu
+
 ## Setup using docker
 * create own setting file (`setting.py`), example you can found in `setting-exmaple.py`
 * run docker container with command 
@@ -12,6 +18,8 @@ docker run -d \
   -p 5000:5000 \
   lukasplevac/r2cloud-public
 ```
+
+example docker stack in `docker-stack-example.xml`
 
 ### Advence docker
 
