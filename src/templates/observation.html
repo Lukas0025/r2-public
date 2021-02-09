@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="my-3 my-md-5">
+  <div class="map-header">
+     <div id="map-track"></div>
+  </div>
+  <div class="container">
+     <div class="row row-cards">
+        <div class="col-lg-4 col-md-6">
+           <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">Observation metadata</h3>
+              </div>
+              <div class="card-body">
+                 <div class="media mb-5">
+                    <img class="d-flex mr-5 rounded" width="70px" src="/static/images/satellites/default.png">
+                    <div class="media-body">
+                       <h5>{{ tle[0] }}</h5>
+                       <address class="text-muted small">
+                          id: {{ ob['id'] }}
+                       </address>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-6">
+                       <div class="h6">Start UTC</div>
+                       <p id="start" value="{{ ob['start'].timestamp() }}">{{  ob['start'] }}</p>
+                    </div>
+                    <div class="col-6">
+                       <div class="h6">End UTC</div>
+                       <p id="end" value="{{ ob['end'].timestamp() }}">{{  ob['end'] }}</p>
+                    </div>
+                    <div class="col-6">
+                       <div class="h6">Sample Rate</div>
+                       <p>{{ ob['sampleRate'] }}</p>
+                    </div>
+                    <div class="col-6">
+                       <div class="h6">Input Sample Rate</div>
+                       <p>{{ ob['inputSampleRate'] }}</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="h6">Frequency</div>
+                      <p>{{ ob['frequency'] }}</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="h6">Actual Frequency</div>
+                      <p>{{ ob['actualFrequency'] }}</p>
+                    </div>
+                    <div class="col-6">
+                       <div class="h6">Bandwidth</div>
+                       <p>{{ ob['bandwidth'] }}</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="h6">Decoded Packets</div>
+                      <p>{{ ob['numberOfDecodedPackets'] }}</p>
+                    </div>
+                 </div>
+                 <div class="h6">TLE</div>
+                 <p class="text-muted small" id="tle" line2="{{ tle[1] }}" line3="{{ tle[2] }}">
+                 {{ tle[1] }}<br>{{ tle[2] }}
+                 </p>
+              </div>
+           </div>
+        </div>
+
+        <div class="col-lg-8 col-md-6">
+
+           {% if ob['aUrl'] %}
+           <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">Decoded image</h3>
+              </div>
+              <div class="card-body">
+                  <img src="{{ ob['aUrl'] }}">
+              </div>
+           </div>
+           {% endif %}
+
+           {% if  ob['spectogramURL'] %}
+           <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">Spectrogram</h3>
+              </div>
+              <div class="card-body">
+                  <img src="{{ ob['spectogramURL'] }}">
+              </div>
+           </div>
+           {% endif %}
+
+           {% if  ob['dataUrl'] %}
+           <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">Decoded data - <a href="{{ ob['dataUrl'] }}">Download</a></h3>
+              </div>
+              <div class="card-body">
+                  <table style="width: 100%;">
+                     {{ hexdump(requests.get(ob['dataUrl']).content, lines_num=hexdumpLimit) | safe }}
+                  </table>
+              </div>
+           </div>
+           {% endif %}
+
+        </div>
+     </div>
+  </div>
+</div>
+
+<script>
+   var map   = createMap("map-track");
+  
+   var track = getGroundTrackOfTle(
+      loadTle("tle"),
+      Number(document.getElementById("start").getAttribute("value")),
+      Number(document.getElementById("end").getAttribute("value"))
+   )
+
+   addSatelliteTrack(map, track);
+   addGroundStation(map, {{ groundStation['lat'] }}, {{ groundStation['lon'] }});
+</script>
+
+{% endblock %}

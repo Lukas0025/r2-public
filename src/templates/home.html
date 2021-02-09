@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="page-header">
+      <h1 class="page-title">
+        Ground Stations Map
+      </h1>
+    </div>
+    <div class="row row-cards row-deck">
+      <div class="col-12">
+        <div class="card">
+          <div id="map-gr"></div>
+          <style>
+            #map-gr { height: 500px; }
+          </style>
+          <script>
+              var map = createMap("map-gr");
+        
+              {% for gr in grs %}
+                addGroundStation(
+                  map,
+                  {{ gr['lat'] }},
+                  {{ gr['lon'] }},
+                  "{{ json.dumps(gr) }}"
+                );
+              {% endfor %}
+
+              map.setView([20, 0], 2);
+              map.on('popupopen', function(){
+                var cont = document.getElementsByClassName('leaflet-popup-content')[0];
+                window.location.href='/observationlist?ground=' + encodeURIComponent(cont.innerHTML)
+              });
+          </script>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="col-12 pl-0 pr-0">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Satellites</h3>
+            </div>
+            <div class="card-body o-auto" style="height: 25rem">
+              <ul class="list-unstyled list-separated">
+                {% for sat in sats %}
+                <li class="list-separated-item">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <img src="/static/images/satellites/default.png">
+                    </div>
+                    <div class="col">
+                      <div>
+                        <a href="/observationlist?sat={{ sat }}" class="text-inherit">{{ sats[sat]['name'] }}</a>
+                      </div>
+                      <small class="d-block item-except text-sm text-muted h-1x">id: {{ sat }}</small>
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Last image</h3>
+          </div>
+          
+          <a href="/observation?ob={{ lastImage['id'] }}" class="mb-3" style="
+            height: 25rem;
+            position: relative;
+            background-color: black;
+            margin: 0!important;
+            padding: 0;
+            ">
+            <img src="{{ lastImage['aUrl'] }}" class="rounded" style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              max-height: 300px;
+              ">
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Last Decoded Observations</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+               <thead>
+                  <tr>
+                     <th class="w-1">id</th>
+                     <th>Satellite</th>
+                     <th>Date-Time UTC</th>
+                     <th>Packets</th>
+                  </tr>
+               </thead>
+               <tbody>
+                {% for ob in obs %}
+                  <tr style="cursor: pointer;" onclick="window.location.href='/observation?ob={{ ob['id'] }}'">
+                    <td>{{ ob['id'] }}</td>
+                    <td>{{ json.loads(ob['tle'])[0] }}</td>
+                    <td>{{ ob['start'] }}</td>
+                    <td>{{ ob['numberOfDecodedPackets'] }}</td>
+                  </tr>
+                {% endfor %}
+               </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
