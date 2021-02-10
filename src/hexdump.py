@@ -3,7 +3,7 @@
 
 FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
 
-def dump(src, length=16, bytes_lim=None):
+def hexdump(src, length=16, bytes_lim=None):
     N=0; result=''
     while src:
        s,src = src[:length],src[length:]
