@@ -50,13 +50,14 @@ def root():
     return render_template(
         'home.html',
         siteName         = setting.siteName,
-        custom      = setting.customMain,
-        customHead  = setting.customHead,
+        custom           = setting.customMain,
+        customHead       = setting.customHead,
         grs              = db.getGroundStations(),
         obs              = db.getObservationsWithData(setting.mainObsCount),
         json             = json,
         lastImage        = db.getLastWithA(),
-        sats             = setting.satellites
+        sats             = setting.satellites,
+        subSiteTitle     = ""
     )
 
 @app.route('/observation')
@@ -64,6 +65,8 @@ def observation():
     obId        = request.args.get('ob')
     db          = database(setting.db)
     ob          = db.getObservation(obId)
+    
+    tle         = json.loads(ob['tle'])
 
     return render_template(
         'observation.html',
@@ -71,11 +74,12 @@ def observation():
         customHead  = setting.customHead,
         siteName = setting.siteName,
         setting = setting,
-        tle = json.loads(ob['tle']),
+        tle = tle,
         groundStation = json.loads(ob['groundStation']),
         hexdump = hexdump,
         requests = requests,
-        hexdumpLimit = setting.hexdumpLimit
+        hexdumpLimit = setting.hexdumpLimit,
+        subSiteTitle = " - observation %s of %s" % (ob['id'], tle[0])
     )
 
 @app.route('/decodedobservationlist')
@@ -88,19 +92,21 @@ def decodedObservationList():
 
     return render_template(
         'observationList.html',
-        obs        = observations,
+        obs         = observations,
         customHead  = setting.customHead,
-        siteName   = setting.siteName,
-        datetime   = datetime,
-        main_title = main_title,
-        json       = json
+        siteName    = setting.siteName,
+        datetime    = datetime,
+        main_title  = main_title,
+        json        = json,
+        subSiteTitle = " - decoded observations list"
     )
 
 @app.route('/observationlist')
 def observationList():
-    sat  = request.args.get('sat')
-    time = request.args.get('time')
+    sat    = request.args.get('sat')
+    time   = request.args.get('time')
     ground = request.args.get('ground')
+    
     db     = database(setting.db)
 
     
@@ -124,10 +130,11 @@ def observationList():
 
     return render_template(
         'observationList.html',
-        customHead  = setting.customHead,
-        obs        = observations,
-        siteName   = setting.siteName,
-        datetime   = datetime,
-        main_title = main_title,
-        json       = json
+        customHead    = setting.customHead,
+        obs           = observations,
+        siteName      = setting.siteName,
+        datetime      = datetime,
+        main_title    = main_title,
+        json          = json,
+        subSiteTitle  = " - observations list"
     )
