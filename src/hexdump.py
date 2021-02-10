@@ -11,7 +11,7 @@ def hexdump(src, length=16, bytes_lim=None):
     printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])
     lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))
     
-    if not(byte_lim is None) and (byte_lim < c):
+    if not(byte_lim is None) and (bytes_lim < c):
       result += "<tr>Bytes removed - over limit %s</tr>\n" % (N)
       break
   return '\n'.join(lines)
