@@ -12,7 +12,7 @@ for satellite in setting.satellites:
     print("syncing {} source {}".format(info["name"], info["source"]))
     # observations sync
     for ob in network.observation(satellite):
-        if not(db.haveObservation(ob.id)):
+        if not(db.haveObservation(ob.id)) and (ob.haveSpect or ob.haveA or ob.haveData):
             if setting.mirror:
                 if ob.haveA:
                     image = ob.a()
