@@ -13,9 +13,38 @@ class database:
         )
         
         self.cursor = self.link.cursor(buffered=True, dictionary=True)
-
+            
+            
     def __del__(self): 
         self.close()
+        
+    def isInited(self):
+        self.cursor.execute("""SELECT COUNT(*)
+                                                 FROM information_schema.tables
+                                                 WHERE table_name = `observations`""")
+        
+        return self.cursor.fetchone()[0] == 1
+        
+    def initDb(self):
+        self.cursor.execute("""DROP TABLE IF EXISTS `observations`;
+                                                CREATE TABLE `observations` (
+                                                        `id` int(11) NOT NULL,
+                                                        `norad` int(11) NOT NULL,
+                                                        `start` int(11) NOT NULL,
+                                                        `end` int(11) NOT NULL,
+                                                        `sampleRate` int(11) NOT NULL,
+                                                        `inputSampleRate` int(11) NOT NULL,
+                                                        `frequency` int(11) NOT NULL,
+                                                        `actualFrequency` int(11) NOT NULL,
+                                                        `bandwidth` int(11) NOT NULL,
+                                                        `tle` text NOT NULL,
+                                                        `numberOfDecodedPackets` int(11) NOT NULL,
+                                                        `gain` float NOT NULL,
+                                                        `aUrl` text DEFAULT NULL,
+                                                        `dataUrl` text DEFAULT NULL,
+                                                        `spectogramURL` text DEFAULT NULL,
+                                                        `groundStation` text DEFAULT NULL
+                                                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;""")
 
     def insertObservation(self, ob):
         if ob.haveA:
