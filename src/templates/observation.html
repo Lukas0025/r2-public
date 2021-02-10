@@ -114,7 +114,7 @@
                         <th>E</th>
                         <th>F</th>
                      </tr>
-                     {{ hexdump( bytes(requests.get(ob['dataUrl']).content, encoding="raw_unicode_escape"), bytes_lim=hexdumpLimit) | safe }}
+                     {{ hexdump(requests.get(ob['dataUrl']).content, bytes_lim=hexdumpLimit) | safe }}
                   </table>
               </div>
            </div>
