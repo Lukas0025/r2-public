@@ -40,9 +40,6 @@ def startCrons():
     return crons
 
 
-app      = Flask(__name__)
-crons    = startCrons()
-
 db = database(setting.db)
 
 if not(db.isInited()):
@@ -50,6 +47,10 @@ if not(db.isInited()):
     db.commit()
     
 db.close()
+
+app      = Flask(__name__)
+crons    = startCrons()
+
 
 @app.route('/')
 def root():
