@@ -7,11 +7,11 @@ def hexdump(src, length=16, bytes_lim=None):
   lines = []
   for c in range(0, len(src), length):
     chars = src[c:c+length]
-    hexstr = ' '.join(["<td>%02x</td>" % ord(x) for x in chars]) if type(chars) is str else ' '.join(['{:02x}'.format(x) for x in chars])
+    hexstr = ''.join(["<td>%02x</td>" % ord(x) for x in chars]) if type(chars) is str else ''.join(['<td>{:02x}</td>'.format(x) for x in chars])
     printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])
     lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))
     
     if not(bytes_lim is None) and (bytes_lim < c):
-      lines.append("<tr>Bytes removed - over limit %s</tr>\n" % (bytes_lim))
+      lines.append("<tr><td>Bytes removed - over limit %s</td></tr>\n" % (bytes_lim))
       break
   return '\n'.join(lines)
