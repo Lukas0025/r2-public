@@ -1,19 +1,17 @@
 # from: https://github.com/ActiveState/code/blob/master/recipes/Python/142812_Hex_dumper/recipe-142812.py
 # Under MIT
 
-FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
-
 def hexdump(src, length=16, bytes_lim=None):
-    N=0; result=''
-    while src:
-       s,src = src[:length],src[length:]
-       hexa = ' '.join(["<td>%02X</td>" % ord(x) for x in s])
-       s = s.translate(FILTER)
-       result += "<tr><td>%04X</td>%-*s<td>%s</td></tr>\n" % (N, length*3, hexa, s)
-       N+=length
-       
-       if not(bytes_lim is None) and byte_lim < N:
-           result += "<tr>Bytes removed - over limit %s</tr>\n" % (N)
-           break
+  FILTER = ''.join([(len(repr(chr(x))) == 3) and chr(x) or sep for x in range(256)])
+  lines = []	
+  for c in range(0, len(src), length):	
+    chars = src[c:c+length]	
+    hexstr = ' '.join(["<td>%02x</td>" % ord(x) for x in chars]) if type(chars) is str else ' '.join(['{:02x}'.format(x) for x in chars])
+    printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])	
+    lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))	
 
-    return result
+    if not(byte_lim is None) and (byte_lim < c):
+      result += "<tr>Bytes removed - over limit %s</tr>\n" % (N)
+      break
+
+  return '\n'.join(lines) 	FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
