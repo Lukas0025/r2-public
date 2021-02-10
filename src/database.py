@@ -28,8 +28,8 @@ class database:
                                                 CREATE TABLE `observations` (
                                                         `id` int(11) NOT NULL,
                                                         `norad` int(11) NOT NULL,
-                                                        `start` int(11) NOT NULL,
-                                                        `end` int(11) NOT NULL,
+                                                        `start` datetime NOT NULL,
+                                                        `end` datetime NOT NULL,
                                                         `sampleRate` int(11) NOT NULL,
                                                         `inputSampleRate` int(11) NOT NULL,
                                                         `frequency` int(11) NOT NULL,
@@ -41,7 +41,8 @@ class database:
                                                         `aUrl` text DEFAULT NULL,
                                                         `dataUrl` text DEFAULT NULL,
                                                         `spectogramURL` text DEFAULT NULL,
-                                                        `groundStation` text DEFAULT NULL
+                                                        `groundStation` text DEFAULT NULL,
+                                                         PRIMARY KEY(`id`)
                                                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;""")
 
     def insertObservation(self, ob):
