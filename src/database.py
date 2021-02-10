@@ -19,11 +19,9 @@ class database:
         self.close()
         
     def isInited(self):
-        self.cursor.execute("""SELECT COUNT(*)
-                                                 FROM information_schema.tables
-                                                 WHERE table_name = `observations`""")
+        self.cursor.execute("SHOW TABLES LIKE 'observations'")
         
-        return self.cursor.fetchone()[0] == 1
+        return self.cursor.fetchone()
         
     def initDb(self):
         self.cursor.execute("""DROP TABLE IF EXISTS `observations`;
