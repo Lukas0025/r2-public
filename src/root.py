@@ -43,6 +43,14 @@ def startCrons():
 app      = Flask(__name__)
 crons    = startCrons()
 
+db = database(setting.db)
+
+if not(db.isInited()):
+    db.initDb()
+    db.commit()
+    
+db.close()
+
 @app.route('/')
 def root():
     db     = database(setting.db)
