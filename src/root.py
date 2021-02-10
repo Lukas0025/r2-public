@@ -46,8 +46,7 @@ db = database(setting.db)
 
 if not(db.isInited()):
     db.initDb()
-    db.commit()
-    
+
 db.close()
 
 app      = Flask(__name__)
