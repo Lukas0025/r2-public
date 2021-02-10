@@ -39,6 +39,8 @@ def startCrons():
 
     return crons
 
+print("Wait 60s for DB init")
+time.sleep(60)
 
 db = database(setting.db)
 
