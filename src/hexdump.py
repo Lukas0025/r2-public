@@ -2,6 +2,7 @@
 # Under MIT
 
 def hexdump(src, length=16, bytes_lim=None):
+  sep = '.'
   FILTER = ''.join([(len(repr(chr(x))) == 3) and chr(x) or sep for x in range(256)])
   lines = []
   for c in range(0, len(src), length):
