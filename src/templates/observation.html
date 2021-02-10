@@ -95,7 +95,26 @@
               </div>
               <div class="card-body">
                   <table style="width: 100%;">
-                     {{ hexdump(requests.get(ob['dataUrl']).content, lines_num=hexdumpLimit) | safe }}
+                     <tr>
+                        <th></th>
+                        <th>0</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>E</th>
+                        <th>F</th>
+                     </tr>
+                     {{ hexdump(requests.get(ob['dataUrl']).content, bytes_lim=hexdumpLimit) | safe }}
                   </table>
               </div>
            </div>
