@@ -3,15 +3,14 @@
 
 def hexdump(src, length=16, bytes_lim=None):
   FILTER = ''.join([(len(repr(chr(x))) == 3) and chr(x) or sep for x in range(256)])
-  lines = []	
-  for c in range(0, len(src), length):	
-    chars = src[c:c+length]	
+  lines = []
+  for c in range(0, len(src), length):
+    chars = src[c:c+length]
     hexstr = ' '.join(["<td>%02x</td>" % ord(x) for x in chars]) if type(chars) is str else ' '.join(['{:02x}'.format(x) for x in chars])
-    printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])	
-    lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))	
-
+    printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])
+    lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))
+    
     if not(byte_lim is None) and (byte_lim < c):
       result += "<tr>Bytes removed - over limit %s</tr>\n" % (N)
       break
-
-  return '\n'.join(lines) 	FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
+  return '\n'.join(lines)
