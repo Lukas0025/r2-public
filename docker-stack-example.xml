@@ -6,19 +6,6 @@ r2public:
      - "80:5000"
     volumes:
      - /path/to/setting.py:/r2cloud_public/setting.py
-     
-adminer:
-    image: adminer
-    links:
-     - mariadb:mysql
-    environment:
-      ADMINER_DEFAULT_DB_DRIVER: mysql
-      ADMINER_DEFAULT_DB_HOST: mysql
-      ADMINER_DEFAULT_DB_NAME: r2public
-      ADMINER_DESIGN: nette
-      ADMINER_PLUGINS: tables-filter tinymce
-    ports:
-      - 8080:8080
       
 mariadb:
     image: mariadb
