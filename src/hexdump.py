@@ -8,8 +8,8 @@ def getAsciiColor(char_num):
     return "#239123"
   elif (char_num >= 48) and (char_num <= 57):
     return "#962d96"
-  elif ((char_num >= 58) and (char_num <= 59)) or ((char_num >= 91) and (char_num <= 96)) or ((char_num >= 123) and (char_num <= 126)):
-    return "#118888"
+  elif ((char_num >= 58) and (char_num <= 64)) or ((char_num >= 91) and (char_num <= 96)) or ((char_num >= 123) and (char_num <= 126)):
+    return "#239123"
   elif ((char_num >= 65) and (char_num <= 90)) or ((char_num >= 97) and (char_num <= 122)):
     return "#b92d2d"
   
