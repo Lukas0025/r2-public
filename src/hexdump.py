@@ -19,7 +19,7 @@ def hexdump(src, length=16, bytes_lim=None):
   lines = []
   for c in range(0, len(src), length):
     chars = src[c:c+length]
-    hexstr = ''.join(["<td style='color:%s'>%02x</td>" % (getAsciiColor(ord(x)), ord(x)) for x in chars]) if type(chars) is str else ''.join(['<td style="color:%s">{:02x}</td>'.format(getAsciiColor(ord(x)), x) for x in chars])
+    hexstr = ''.join(["<td style='color:%s'>%02x</td>" % (getAsciiColor(ord(x)), ord(x)) for x in chars]) if type(chars) is str else ''.join(['<td style="color:%s">{:02x}</td>'.format(getAsciiColor(x), x) for x in chars])
     printable = ''.join(["%s" % ((ord(x) <= 127 and FILTER[ord(x)]) or sep) for x in chars]) if type(chars) is str else ''.join(['{}'.format((x <= 127 and FILTER[x]) or sep) for x in chars])
     lines.append("<tr><td>%08x</td>%-*s<td>%s</td></tr>" % (c, length*3, hexstr, printable))
     
