@@ -18,7 +18,7 @@ import maidenhead as mh
 # @return str Maidenhead locator
 def json_to_maiden(json_str):
     gr = json.loads(json_str)
-    return mh.to_maiden(gr['lat'], gr['lon'], 4)
+    return mh.to_maiden(gr['lat'], gr['lon'])
 
 #crons
 def sync_cron():
