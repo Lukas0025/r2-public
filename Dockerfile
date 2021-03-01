@@ -7,7 +7,8 @@ RUN apt-get update && \
     pip3 install Flask && \
     pip3 install r2server && \
     pip3 install requests && \
-    pip3 install mysql-connector-python
+    pip3 install mysql-connector-python && \
+    pip3 install maidenhead
 
 #add system
 ADD src/. /r2cloud_public

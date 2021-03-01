@@ -43,6 +43,6 @@ make build
 
 ## Setup without docker
 * install `python3` and `python3-pip` - `apt install python3 python3-pip`
-* from `pip3` install `r2server`, `Flask` and `requests` - `pip3 install Flask && pip3 install r2server && pip3 install requests`
+* from `pip3` install `r2server`, `Flask`, `maidenhead`, and `requests` - `pip3 install Flask && pip3 install r2server && pip3 install requests && pip3 install maidenhead`
 * create own setting file (`setting.py`), example you can found in `setting-exmaple.py`
 * run app using `env FLASK_APP=root.py flask run` in `src` dir
