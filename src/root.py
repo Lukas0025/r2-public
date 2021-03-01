@@ -75,38 +75,38 @@ def root():
 ## IMAGE API
 ##
 @app.route('/api/img/last')
-def root():
+def apiImgLast():
     db     = database(setting.db)
 
     sat    = request.args.get('sat')
     if sat != None:
-        img = db.getLastSatWithA(sat)
+        img = db.getLastSatWithA(sat)['aUrl']
     else:
-        img = db.getLastWithA()
+        img = db.getLastWithA()['aUrl']
 
     return send_from_directory(img, "api")
 
 @app.route('/api/img/lastbest')
-def root():
+def apiImgLastBest():
     db     = database(setting.db)
 
     sat    = request.args.get('sat')
     if sat != None:
-        img = db.getLastSatWithLotPacketsA(sat)
+        img = db.getLastSatWithLotPacketsA(sat)['aUrl']
     else:
-        img = db.getLastWithLotPacketsA())
+        img = db.getLastWithLotPacketsA())['aUrl']
 
     return send_from_directory(img, "api")
 
 @app.route('/api/img/besttoday')
-def root():
+def apiImgBestToday():
     db     = database(setting.db)
 
     sat    = request.args.get('sat')
     if sat != None:
-        img = db.getBestSatPacketsToday(sat)
+        img = db.getBestSatPacketsToday(sat)['aUrl']
     else:
-        img = db.getBestPacketsToday()
+        img = db.getBestPacketsToday()['aUrl']
 
     return send_from_directory(img, "api")
 ##
