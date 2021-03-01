@@ -157,7 +157,7 @@ class database:
     # @param self
     # @return named array of observation
     def getLastWithA(self):
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY start DESC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY end DESC LIMIT 1"
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
 
@@ -166,7 +166,7 @@ class database:
     # @param norad int - norad of satellite
     # @return named array of observation
     def getLastSatWithA(self, norad):
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY start DESC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY end DESC LIMIT 1"
         self.cursor.execute(sql, (norad,))
         return self.cursor.fetchall()[0]
 
@@ -174,8 +174,7 @@ class database:
     # @param self
     # @return named array of observation
     def getLastWithLotPacketsA(self):
-        #10000 to fix sorting problem with negative numbers
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (TIMESTAMPDIFF(SECOND, start, NOW()) - numberOfDecodedPackets)  ASC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (TIMESTAMPDIFF(SECOND, end, NOW()) - numberOfDecodedPackets)  ASC LIMIT 1"
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
 
@@ -184,8 +183,7 @@ class database:
     # @param norad int - norad of satellite
     # @return named array of observation
     def getLastSatWithLotPacketsA(self, norad):
-        #10000 to fix sorting problem with negative numbers
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY (TIMESTAMPDIFF(SECOND, start, NOW()) - numberOfDecodedPackets) ASC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY (TIMESTAMPDIFF(SECOND, end, NOW()) - numberOfDecodedPackets) ASC LIMIT 1"
         self.cursor.execute(sql, (norad,))
         return self.cursor.fetchall()[0]
 
