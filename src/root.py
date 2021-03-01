@@ -94,7 +94,7 @@ def apiImgLastBest():
     if sat != None:
         img = db.getLastSatWithLotPacketsA(sat)['aUrl']
     else:
-        img = db.getLastWithLotPacketsA())['aUrl']
+        img = db.getLastWithLotPacketsA()['aUrl']
 
     return send_from_directory(img, "api")
 
