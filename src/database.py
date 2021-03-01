@@ -161,12 +161,30 @@ class database:
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
 
+    ## get last observation with A channel by satellite
+    # @param self
+    # @param norad int - norad of satellite
+    # @return named array of observation
+    def getLastSatWithA(self, norad):
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY start DESC LIMIT 1"
+        self.cursor.execute(sql, (norad,))
+        return self.cursor.fetchall()[0]
+
     ## get last observation with lot of packets and A channel
     # @param self
     # @return named array of observation
     def getLastWithLotPacketsA(self):
         sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (TIMESTAMPDIFF(SECOND, NOW(), start) - numberOfDecodedPackets)  ASC LIMIT 1"
         self.cursor.execute(sql)
+        return self.cursor.fetchall()[0]
+
+    ## get last observation of sat with lot of packets and A channel by setellite
+    # @param self
+    # @param norad int - norad of satellite
+    # @return named array of observation
+    def getLastSatWithLotPacketsA(self, norad):
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY (TIMESTAMPDIFF(SECOND, NOW(), start) - numberOfDecodedPackets)  ASC LIMIT 1"
+        self.cursor.execute(sql, (norad,))
         return self.cursor.fetchall()[0]
 
     ## get best observation today with lot of packets and A channel
@@ -176,6 +194,16 @@ class database:
         sql = "SELECT * FROM observations WHERE aUrl is not NULL and start >= CURDATE() ORDER BY numberOfDecodedPackets DESC LIMIT 1"
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
+
+    ## get best observation today with lot of packets and A channel by satellite
+    # @param self
+    # @param norad int - norad of satellite
+    # @return named array of observation
+    def getBestSatPacketsToday(self, norad):
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and start >= CURDATE() and norad = %s ORDER BY numberOfDecodedPackets DESC LIMIT 1"
+        self.cursor.execute(sql, (norad,))
+        return self.cursor.fetchall()[0]
+
 
     ## get observation with id
     # @param self

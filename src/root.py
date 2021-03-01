@@ -70,6 +70,50 @@ def root():
         subSiteTitle     = ""
     )
 
+
+##
+## IMAGE API
+##
+@app.route('/api/img/last')
+def root():
+    db     = database(setting.db)
+
+    sat    = request.args.get('sat')
+    if sat != None:
+        img = db.getLastSatWithA(sat)
+    else:
+        img = db.getLastWithA()
+
+    return send_from_directory(img, "api")
+
+@app.route('/api/img/lastbest')
+def root():
+    db     = database(setting.db)
+
+    sat    = request.args.get('sat')
+    if sat != None:
+        img = db.getLastSatWithLotPacketsA(sat)
+    else:
+        img = db.getLastWithLotPacketsA())
+
+    return send_from_directory(img, "api")
+
+@app.route('/api/img/besttoday')
+def root():
+    db     = database(setting.db)
+
+    sat    = request.args.get('sat')
+    if sat != None:
+        img = db.getBestSatPacketsToday(sat)
+    else:
+        img = db.getBestPacketsToday()
+
+    return send_from_directory(img, "api")
+##
+## API end
+##
+
+
 @app.route('/observation')
 def observation():
     obId        = request.args.get('ob')
