@@ -161,6 +161,22 @@ class database:
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
 
+    ## get last observation with lot of packets and A channel
+    # @param self
+    # @return named array of observation
+    def getLastWithLotPacketsA(self):
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (TIMESTAMPDIFF(SECOND, NOW(), start) - numberOfDecodedPackets)  ASC LIMIT 1"
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()[0]
+
+    ## get best observation today with lot of packets and A channel
+    # @param self
+    # @return named array of observation
+    def getBestPacketsToday(self):
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and start >= CURDATE() ORDER BY numberOfDecodedPackets DESC LIMIT 1"
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()[0]
+
     ## get observation with id
     # @param self
     # @param id int - r2server.observation.id

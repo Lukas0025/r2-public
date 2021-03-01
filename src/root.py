@@ -65,7 +65,7 @@ def root():
         grs              = db.getGroundStations(),
         obs              = db.getObservationsWithData(setting.mainObsCount),
         json             = json,
-        lastImage        = db.getLastWithA(),
+        lastImage        = db.getLastWithLotPacketsA(),
         sats             = setting.satellites,
         subSiteTitle     = ""
     )
