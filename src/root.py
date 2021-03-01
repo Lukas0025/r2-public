@@ -84,7 +84,7 @@ def apiImgLast():
     else:
         img = db.getLastWithA()['aUrl']
 
-    return send_from_directory(img, "api")
+    return redirect(img)
 
 @app.route('/api/img/lastbest')
 def apiImgLastBest():
@@ -96,7 +96,7 @@ def apiImgLastBest():
     else:
         img = db.getLastWithLotPacketsA()['aUrl']
 
-    return send_from_directory(img, "api")
+    return redirect(img)
 
 @app.route('/api/img/besttoday')
 def apiImgBestToday():
@@ -108,7 +108,7 @@ def apiImgBestToday():
     else:
         img = db.getBestPacketsToday()['aUrl']
 
-    return send_from_directory(img, "api")
+    return redirect(img)
 ##
 ## API end
 ##
