@@ -55,6 +55,14 @@
                       <div class="h6">Decoded Packets</div>
                       <p>{{ ob['numberOfDecodedPackets'] }}</p>
                     </div>
+                    <div class="col-6">
+                        <div class="h6">Ground Station</div>
+                        <p><a href="/observationlist?ground={{ urlencode(ob['groundStation']) }}">{{ json_to_maiden(ob['groundStation']) }}</a></p>
+                     </div>
+                     <div class="col-6">
+                        <!--div class="h6">Decoded Packets</div>
+                        <p>{{ ob['numberOfDecodedPackets'] }}</p-->
+                     </div>
                  </div>
                  <div class="h6">TLE</div>
                  <p class="text-muted small" id="tle" line2="{{ tle[1] }}" line3="{{ tle[2] }}">

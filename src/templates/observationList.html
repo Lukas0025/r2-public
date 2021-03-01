@@ -36,7 +36,7 @@
                            >
                               <td>{{ ob['id'] }}</td>
                               <td>{{ json.loads(ob['tle'])[0] }}</td>
-                              <td>{{ json.loads(ob['groundStation']) }}</td>
+                              <td>{{ json_to_maiden(ob['groundStation']) }}</td>
                               <td>{{ ob['start'] }}</td>
                               <td>{{ ob['numberOfDecodedPackets'] }}</td>
                           </tr>

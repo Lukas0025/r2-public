@@ -9,7 +9,16 @@ from datetime import datetime
 from database import database
 import requests
 from flask import Flask, render_template, redirect, url_for, request
+import urllib.parse
+#https://pypi.org/project/maidenhead/
+import maidenhead as mh
 
+## Convert json encoded coordinate ground station to locator
+# @param json_str str json encoded coordinates
+# @return str Maidenhead locator
+def json_to_maiden(json_str):
+    gr = json.loads(json_str)
+    return mh.to_maiden(gr['lat'], gr['lon'], 4)
 
 #crons
 def sync_cron():
@@ -59,15 +68,15 @@ def root():
 
     return render_template(
         'home.html',
-        siteName         = setting.siteName,
-        custom           = setting.customMain,
+        siteName             = setting.siteName,
+        custom                 = setting.customMain,
         customHead       = setting.customHead,
-        grs              = db.getGroundStations(),
-        obs              = db.getObservationsWithData(setting.mainObsCount),
-        json             = json,
-        lastImage        = db.getLastWithLotPacketsA(),
-        sats             = setting.satellites,
-        subSiteTitle     = ""
+        grs                        = db.getGroundStations(),
+        obs                       = db.getObservationsWithData(setting.mainObsCount),
+        json                      = json,
+        lastImage            = db.getLastWithLotPacketsA(),
+        sats                       = setting.satellites,
+        subSiteTitle         = ""
     )
 
 
@@ -133,7 +142,9 @@ def observation():
         hexdump = hexdump,
         requests = requests,
         hexdumpLimit = setting.hexdumpLimit,
-        subSiteTitle = " - observation %s of %s" % (ob['id'], tle[0])
+        subSiteTitle = " - observation %s of %s" % (ob['id'], tle[0]),
+        json_to_maiden = json_to_maiden,
+        urlencode = urllib.parse.quote_plus
     )
 
 @app.route('/decodedobservationlist')
@@ -152,7 +163,8 @@ def decodedObservationList():
         datetime    = datetime,
         main_title  = main_title,
         json        = json,
-        subSiteTitle = " - decoded observations list"
+        subSiteTitle = " - decoded observations list",
+        json_to_maiden = json_to_maiden
     )
 
 @app.route('/observationlist')
@@ -174,7 +186,7 @@ def observationList():
 
         observations = db.observationListInTime(date)
     elif ground != None:
-        main_title   = "All observations by GroundStation (limit: %s)" % (setting.observationsLimit)
+        main_title   = "All observations by GroundStation %s (limit: %s)" % (json_to_maiden(ground), setting.observationsLimit)
 
         observations = db.observationListOfGroundStation(ground, setting.observationsLimit)
     else:
@@ -190,5 +202,6 @@ def observationList():
         datetime      = datetime,
         main_title    = main_title,
         json          = json,
-        subSiteTitle  = " - observations list"
+        subSiteTitle  = " - observations list",
+        json_to_maiden = json_to_maiden
     )
