@@ -33,10 +33,10 @@ make build
 ```
 
 ####  volumes
-* `/r2cloud_public/setting.py:ro          `- setting file
-* `/r2cloud_public/static/a:rw            `- dir with downloaded a
-* `/r2cloud_public/static/data:rw         `- dir with downloaded binary files (decoded binary)
-* `/r2cloud_public/static/spects:rw       `- dir with downloaded spectrograms
+* `/r2public/setting.py:ro          `- setting file
+* `/r2public/static/a:rw            `- dir with downloaded a
+* `/r2public/static/data:rw         `- dir with downloaded binary files (decoded binary)
+* `/r2public/static/spects:rw       `- dir with downloaded spectrograms
 
 #### ports
 * `5000` - http ui website
