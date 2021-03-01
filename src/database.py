@@ -175,7 +175,7 @@ class database:
     # @return named array of observation
     def getLastWithLotPacketsA(self):
         #10000 to fix sorting problem with negative numbers
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (10000 + TIMESTAMPDIFF(SECOND, NOW(), start) - numberOfDecodedPackets)  ASC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL ORDER BY (TIMESTAMPDIFF(SECOND, start, NOW()) - numberOfDecodedPackets)  ASC LIMIT 1"
         self.cursor.execute(sql)
         return self.cursor.fetchall()[0]
 
@@ -185,7 +185,7 @@ class database:
     # @return named array of observation
     def getLastSatWithLotPacketsA(self, norad):
         #10000 to fix sorting problem with negative numbers
-        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY (10000 + TIMESTAMPDIFF(SECOND, NOW(), start) - numberOfDecodedPackets) ASC LIMIT 1"
+        sql = "SELECT * FROM observations WHERE aUrl is not NULL and norad = %s ORDER BY (TIMESTAMPDIFF(SECOND, start, NOW()) - numberOfDecodedPackets) ASC LIMIT 1"
         self.cursor.execute(sql, (norad,))
         return self.cursor.fetchall()[0]
 
