@@ -21,7 +21,7 @@ docker run -d \
 
 example docker stack in `docker-stack-example.xml`
 
-### Advence docker
+### Advance docker
 
 #### Build own image
 ```sh
