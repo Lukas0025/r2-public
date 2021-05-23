@@ -3,9 +3,9 @@ r2public:
     links:
      - mariadb:mysql
     ports:
-     - "80:5000"
+     - "5123:5000"
     volumes:
-     - /path/to/setting.py:/r2cloud_public/setting.py
+     - ./setting-example.py:/r2cloud_public/setting.py
       
 mariadb:
     image: mariadb
@@ -13,4 +13,4 @@ mariadb:
      - MYSQL_ROOT_PASSWORD=XXXXXX
      - MYSQL_DATABASE=r2public
     volumes:
-     - ./database:/var/lib/mysql
+     - database:/var/lib/mysql

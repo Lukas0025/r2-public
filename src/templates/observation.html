@@ -14,7 +14,7 @@
               </div>
               <div class="card-body">
                  <div class="media mb-5">
-                    <img class="d-flex mr-5 rounded" width="70px" src="/static/images/satellites/default.png">
+                    <img class="d-flex mr-5 rounded" width="70px" src="{{ getSatelliteIcon(ob['norad']) }}">
                     <div class="media-body">
                        <h5>{{ tle[0] }}</h5>
                        <address class="text-muted small">
