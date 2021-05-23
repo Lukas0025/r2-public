@@ -25,4 +25,4 @@ def getSatelliteIcon(satId):
         43803: "generic_cube.png", #JY1SAT (JO-97)
         44406: "generic_cube.png", #Lucky7
         44332: "generic_cube.png", #SPOOQY-1
-    }.get(int(satId), "default.png")
+    }.get(int(satId), "generic_cube.png") #default.png
