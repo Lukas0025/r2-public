@@ -19,10 +19,10 @@ mirrorPATH = "static/"
 mirrorURL  = "/static/"
 
 db = {
-    'host': 'localhost',
-    'port': '9090',
-    'user': 'user',
-    'pass': 'pass',
+    'host': 'mysql',
+    'port': '3306',
+    'user': 'root',
+    'pass': 'XXXXXX',
     'db': 'r2public',
 }
 

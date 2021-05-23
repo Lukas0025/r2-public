@@ -15,4 +15,4 @@ def getSatelliteIcon(satId):
         33591: "noaa19.png", #noaa19
         28654: "noaa19.png", #noaa18
         25338: "noaa19.png", #noaa15
-    }.get(satId, "default.png")
+    }.get(int(satId), "default.png")
