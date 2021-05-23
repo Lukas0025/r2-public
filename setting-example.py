@@ -29,12 +29,18 @@ db = {
 satellites = {
     "25338": {
         "name": "NOAA 15",
-        "source": "APT"
+        "source": "APT",
+        "earthObservationImagery": True,
+        "resolution": 6000, #6km/px
+        "swath": 2900000 #m
     },
 
     "28654": {
         "name": "NOAA 18",
-        "source": "APT"
+        "source": "APT",
+        "earthObservationImagery": True,
+        "resolution": 6000, #6km/px
+        "swath": 2900000 #m
     },
 
     "32789": {
@@ -44,7 +50,10 @@ satellites = {
 
     "33591": {
         "name": "NOAA 19",
-        "source": "APT"
+        "source": "APT",
+        "earthObservationImagery": True,
+        "resolution": 6000, #6km/px
+        "swath": 2900000 #m
     },
 
     "39430": {
@@ -59,7 +68,10 @@ satellites = {
 
     "40069": {
         "name": "METEOR-M 2",
-        "source": "LRPT"
+        "source": "LRPT",
+        "earthObservationImagery": True,
+        "resolution": 1000, #1km/px
+        "swath": 2800000 #m
     },
 
     "41460": {
