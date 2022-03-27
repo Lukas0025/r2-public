@@ -5,8 +5,6 @@ Unofficial web client for display data from R2Server API (public)
 
 more ScreenShots in `/imgs`
 
-running server on: https://r2public.eu
-
 ## Setup using docker
 * create own setting file (`setting.py`), example you can found in `setting-exmaple.py`
 * run docker container with command 
