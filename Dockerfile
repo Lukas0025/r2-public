@@ -4,6 +4,7 @@ MAINTAINER Lukas Plevac
 RUN apt-get update && \
     apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     python3 python3-pip && \
+    pip3 install --upgrade setuptools pip && \
     pip3 install Flask && \
     pip3 install r2server && \
     pip3 install requests && \
