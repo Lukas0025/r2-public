@@ -3,8 +3,9 @@ import r2server.tools.common
 import setting
 from database import database
 
-network = r2server.api()
+network = r2server.api(setting.apiServer)
 db      = database(setting.db)
+
 
 for satellite in setting.satellites:
     

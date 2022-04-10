@@ -1,3 +1,5 @@
+apiServer = "https://leosatdata.com/"
+
 mirror = False
 
 siteName = "r2public"
